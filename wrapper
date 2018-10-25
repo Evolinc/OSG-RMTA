@@ -185,7 +185,7 @@ if __name__ == "__main__":
     # Upload the output files.
     try:
         updater.running("uploading the output files")
-        paths = get_paths_to_upload(get_excluded_files(cfg))
+        paths = get_paths_to_upload(get_excluded_files(cfg) + downloaded_files)
         upload_files(cfg.output_ticket_list, cfg.irods_user, cfg.irods_job_user, files)
     except Exception as e:
         updater.running("unable to upload output files: {0}".format(e))
