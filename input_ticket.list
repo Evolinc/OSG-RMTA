@@ -1,0 +1,5 @@
+# application/vnd.de.path-list+csv; version=1
+bbe8c870436444e09daa4e4c2409ca,/iplant/home/upendra_35/osg-rmta/sample_1_R1.fq.gz
+11223588d5cb454abab6f0bb7c3d50,/iplant/home/upendra_35/osg-rmta/sample_1_R2.fq.gz
+10348404ecf1455597b2f71c7f2664,/iplant/home/upendra_35/osg-rmta/Sorghum_bicolor.Sorbi1.20_chr8.gtf
+11ac29d026854725b0e3ab88242e85,/iplant/home/upendra_35/osg-rmta/Sorghum_bicolor.Sorbi1.20.dna.toplevel_chr8.fa

@@ -71,6 +71,9 @@ RUN mv sambamba-0.6.8-linux-static /usr/bin
 ADD Hisat2-Cuffcompare-Cuffmerge.sh $BINPATH
 RUN chmod +x $BINPATH/Hisat2-Cuffcompare-Cuffmerge.sh
 
+# Scripts for OSG
+COPY upload-files wrapper /usr/bin/
+
 # Set environment
 ENV PATH /cufflinks-2.2.1.Linux_x86_64/:$PATH
 ENV PATH /stringtie-1.3.4d.Linux_x86_64/:$PATH
