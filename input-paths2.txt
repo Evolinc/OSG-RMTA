@@ -1,0 +1,4 @@
+/iplant/home/upendra_35/osg-rmta/sample_1_R1.fq.gz
+/iplant/home/upendra_35/osg-rmta/sample_1_R2.fq.gz
+/iplant/home/upendra_35/osg-rmta/Sorghum_bicolor.Sorbi1.20_chr8.gtf
+/iplant/home/upendra_35/osg-rmta/Sorghum_bicolor.Sorbi1.20.dna.toplevel_chr8.fa
