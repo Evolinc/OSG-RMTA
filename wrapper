@@ -111,7 +111,7 @@ def download_files(ticket_list_path):
     with TicketListReader(ticket_list_path) as tlr:
         for ticket, src in tlr:
             download_file(ticket, src)
-            downloaded_files += [os.path.basname(src)]
+            downloaded_files += [os.path.basename(src)]
     return downloaded_files
 
 # Run the job.
@@ -144,7 +144,7 @@ def get_excluded_files(cfg):
 # will be ignored for the time being.
 def get_paths_to_upload(excluded_files):
     excluded_files = set(excluded_files)
-    return [ f for f in os.listdir(".") if f not in excluded_files]
+    return [ f for f in os.listdir(".") if f not in excluded_files and not re.match(r'^[.]', f)]
 
 if __name__ == "__main__":
     # Load the configuration file.
@@ -186,7 +186,7 @@ if __name__ == "__main__":
     try:
         updater.running("uploading the output files")
         paths = get_paths_to_upload(get_excluded_files(cfg) + downloaded_files)
-        upload_files(cfg.output_ticket_list, cfg.irods_user, cfg.irods_job_user, files)
+        upload_files(cfg.output_ticket_list, cfg.irods_user, cfg.irods_job_user, paths)
     except Exception as e:
         updater.running("unable to upload output files: {0}".format(e))
         job_failed = True
