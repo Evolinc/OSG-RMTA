@@ -135,16 +135,18 @@ def upload_files(ticket_list_path, irods_user, owner, files):
 
 # Get the list of excluded files.
 def get_excluded_files(cfg):
-    with open(job_file, "r") as f:
-        job_config = json.load(f)
-    excluded_files = job_config["filter_files"]
+    excluded_files = []
+    if os.path.isfile(job_file):
+        with open(job_file, "r") as f:
+            job_config = json.load(f)
+        excluded_files = job_config["filter_files"]
     return excluded_files + [job_file, config_file, cfg.input_ticket_list, cfg.output_ticket_list]
 
 # Get the list of paths to upload. The list of excluded files may contain files in subdirectories. These
 # will be ignored for the time being.
 def get_paths_to_upload(excluded_files):
     excluded_files = set(excluded_files)
-    return [ f for f in os.listdir(".") if f not in excluded_files and not re.match(r'^[.]', f)]
+    return [f for f in os.listdir(".") if f not in excluded_files and not re.match(r'^[.]', f)]
 
 if __name__ == "__main__":
     # Load the configuration file.
