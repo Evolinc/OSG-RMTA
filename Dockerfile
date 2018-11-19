@@ -65,7 +65,7 @@ WORKDIR /
 RUN wget https://github.com/biod/sambamba/releases/download/v0.6.8/sambamba-0.6.8-linux-static.gz
 RUN gzip -d sambamba-0.6.8-linux-static.gz
 RUN chmod +x sambamba-0.6.8-linux-static
-RUN mv sambamba-0.6.8-linux-static /usr/bin
+RUN mv sambamba-0.6.8-linux-static $BINPATH
 
 # Wrapper script
 ADD Hisat2-Cuffcompare-Cuffmerge.sh $BINPATH
@@ -75,9 +75,10 @@ RUN chmod +x $BINPATH/Hisat2-Cuffcompare-Cuffmerge.sh
 COPY upload-files wrapper /usr/bin/
 
 # Set environment
-ENV PATH /cufflinks-2.2.1.Linux_x86_64/:$PATH
-ENV PATH /stringtie-1.3.4d.Linux_x86_64/:$PATH
-ENV PATH /samtools-1.9/:$PATH
-ENV PATH /hisat2/hisat2-2.1.0/:$PATH
+RUN cp /cufflinks-2.2.1.Linux_x86_64/cuffcompare $BINPATH && \
+    cp /cufflinks-2.2.1.Linux_x86_64/cufflinks $BINPATH && \
+    cp /stringtie-1.3.4d.Linux_x86_64/stringtie $BINPATH && \
+    cp /samtools-1.9/samtools $BINPATH && \
+    cp /hisat2/hisat2-2.1.0/hisat2* /usr/bin
 
 ENTRYPOINT ["Hisat2-Cuffcompare-Cuffmerge.sh"]
