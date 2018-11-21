@@ -1,4 +1,4 @@
-SG-RMTA: Read Mapping and Transcript Assembly workflow On OSG (Open Science Grid) and CyVerse DE (Discovery Environment)
+# OSG-RMTA: Read Mapping and Transcript Assembly workflow On OSG (Open Science Grid) and CyVerse DE (Discovery Environment)
 
 ## Introduction
 
@@ -25,8 +25,6 @@ In order to run OSG-RMTA on OSG, you first need to have account with OSG. Regist
 ###  Login to Submit Host
 
 After you register, you need to add your keys because OSG no longer allow password access. You can find more information [here](https://support.opensciencegrid.org/support/solutions/articles/12000027675-generate-ssh-key-pair-and-add-the-public-key-to-your-account) 
-
-https://swc-osg-workshop.github.io/2017-05-17-JLAB/novice/DHTC/04-HTCondor-Submitting.html
 
 ```
 $ ssh <username>@login.osgconnect.net # username is your username
