@@ -22,11 +22,11 @@ RMTA minimally requires the following input data:
 
 # Availability 
 
-## RMTA in CyVerse's DE
+## OSG-RMTA in CyVerse's DE
 
 The OSG-RMTA-v2.1 app is currently integrated in CyVerse’s Discovery Environment (DE) and is free to use by researchers. Register for a free account at [CyVerse](https://user.cyverse.org). The complete tutorial is available at this location [CyVerse wiki](https://wiki.cyverse.org/wiki/display/DEapps/OSG-RMTA+v2.1). CyVerse's DE is a free and easy to use GUI that simplifies many aspects of running bioinformatics analyses. If you do not currently have access to a high performance computing cluster, consider taking advantange of the DE. You can submit thousands of jobs using the OSG-RMTA v2.1 app and they will run on OSG instead of on the DE.
 
-## RMTA on OSG
+## OSG-RMTA on OSG
 
 The OSG-RMTA-v2.1 Docker image app is currently available on the OSG and is free to use by researchers. In order to run OSG-RMTA on OSG, you first need to have an account with OSG. Register for a free account at [osg-connect](http://osgconnect.net/). After you register, you need to add your keys because OSG no longer allows password access. You can find more information [here](https://support.opensciencegrid.org/support/solutions/articles/12000027675-generate-ssh-key-pair-and-add-the-public-key-to-your-account). 
 
