@@ -63,6 +63,7 @@ RUN vdb-config --root -s /repository/user/cache-disabled="true"
 # Environment
 ENV BINPATH /usr/bin
 ENV LC_ALL C 
+ENV LD_LIBRARY_PATH /opt/conda/lib
 
 # Set environment
 RUN cp /bowtie2-2.3.5-sra-linux-x86_64/bowtie2* $BINPATH && \
