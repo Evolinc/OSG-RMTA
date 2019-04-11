@@ -65,23 +65,22 @@ ENV BINPATH /usr/bin
 ENV LC_ALL C 
 
 # Set environment
-RUN cp /bowtie2-2.3.5-sra-linux-x86_64/bowtie2-build $BINPATH && \
-    cp /bowtie2-2.3.5-sra-linux-x86_64/bowtie2 $BINPATH && \
+RUN cp /bowtie2-2.3.5-sra-linux-x86_64/bowtie2* $BINPATH && \
     cp /opt/conda/bin/stringtie $BINPATH && \
     cp /opt/conda/bin/cuffcompare $BINPATH && \
     cp /opt/conda/bin/featureCounts $BINPATH && \
     cp /opt/conda/bin/sambamba $BINPATH && \
     cp /opt/conda/bin/picard $BINPATH && \
     cp /opt/conda/bin/fastqc $BINPATH && \
-    cp /opt/conda/bin/hisat2-build $BINPATH && \
-    cp /opt/conda/bin/hisat2 $BINPATH && \
-    cp /opt/conda/bin/samtools $BINPATH 
+    cp /opt/conda/bin/hisat2* $BINPATH && \
+    cp /opt/conda/bin/samtools $BINPATH && \
+    cp /opt/conda/bin/sra* $BINPATH
 
 # Scripts for OSG
 COPY upload-files wrapper /usr/bin/
 
 # Wrapper script
-ADD rmta.sh $BINPATH
-RUN chmod +x $BINPATH/rmta.sh
+ADD osg-rmta.sh $BINPATH
+RUN chmod +x $BINPATH/osg-rmta.sh
 
-ENTRYPOINT ["rmta.sh"]
+ENTRYPOINT ["osg-rmta.sh"]
