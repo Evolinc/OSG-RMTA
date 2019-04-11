@@ -686,7 +686,7 @@ duplicates_paired()
     rm -r temp $filename3.bam
     if [ "$duplicates" != 0 ]; then
       rmdup=$(basename $filename3.sorted.bam ".sorted.bam")
-      picard MarkDuplicates I=$filename3.sorted.bam O=$rmdup."sorted.rmdup.bam" ASSUME_SORTED=TRUE METRICS_FILE=/dev/null VALIDATION_STRINGENCY=SILENT REMOVE_DUPLICATES=true
+      java -jar /picard/build/libs/picard.jar MarkDuplicates I=$filename3.sorted.bam O=$rmdup."sorted.rmdup.bam" ASSUME_SORTED=TRUE METRICS_FILE=/dev/null VALIDATION_STRINGENCY=SILENT REMOVE_DUPLICATES=true
       mv $rmdup."sorted.rmdup.bam" "$bam_out"
     else
       mv $filename3.sorted.bam $filename3.sorted.bam.bai "$bam_out"
@@ -963,7 +963,7 @@ single_end()
     rm -r temp $filename.bam
     if [ "$duplicates" != 0 ]; then
       rmdup=$(basename $filename.sorted.bam ".sorted.bam")
-      picard MarkDuplicates I=$filename.sorted.bam O=$rmdup."sorted.rmdup.bam" ASSUME_SORTED=TRUE METRICS_FILE=/dev/null VALIDATION_STRINGENCY=SILENT REMOVE_DUPLICATES=true
+      java -jar /picard/build/libs/picard.jar MarkDuplicates I=$filename.sorted.bam O=$rmdup."sorted.rmdup.bam" ASSUME_SORTED=TRUE METRICS_FILE=/dev/null VALIDATION_STRINGENCY=SILENT REMOVE_DUPLICATES=true
       mv $rmdup".sorted.rmdup.bam" "$bam_out"
     fi
     stringtie_non_SRA_single
@@ -1101,18 +1101,18 @@ elif [ ! -z $sra_id ]; then
       sambamba sort --tmpdir=temp -t $num_threads -o $f.sorted.bam $f.bam
       if [ "$duplicates" != 0 ]; then
         rmdup=$(basename $f.sorted.bam ".sorted.bam")
-        picard MarkDuplicates I=$f.sorted.bam O=$rmdup."sorted.rmdup.bam" ASSUME_SORTED=TRUE METRICS_FILE=/dev/null VALIDATION_STRINGENCY=SILENT REMOVE_DUPLICATES=true
+        java -jar /picard/build/libs/picard.jar MarkDuplicates I=$f.sorted.bam O=$rmdup."sorted.rmdup.bam" ASSUME_SORTED=TRUE METRICS_FILE=/dev/null VALIDATION_STRINGENCY=SILENT REMOVE_DUPLICATES=true
         mv $rmdup."sorted.rmdup.bam" "$bam_out"
       fi
       stringtie_SRA_multi
       if [ "$fastqc" != 0 ]; then
         if [ "$seq_type" == "SE" ]; then
-          picard SamToFastq I="$f".bam FASTQ="$f".fastq
+          java -jar /picard/build/libs/picard.jar SamToFastq I="$f".bam FASTQ="$f".fastq
           fastqc "$f".fastq
           mkdir "$f".fastqc_out
           mv "$f".fastq *.zip *.html "$f".fastqc_out
         elif [ "$seq_type" == "PE" ]; then
-          picard SamToFastq I="$f".bam FASTQ="$f"."R1".fastq SECOND_END_FASTQ="$f"."R2".fastq
+          java -jar /picard/build/libs/picard.jar SamToFastq I="$f".bam FASTQ="$f"."R1".fastq SECOND_END_FASTQ="$f"."R2".fastq
           fastqc "$f"."R1".fastq "$f"."R2".fastq
           mkdir "$f".fastqc_out
           mv "$f".*.fastq *.zip *.html "$f".fastqc_out
@@ -1164,19 +1164,19 @@ elif [ ! -z $sra_id ]; then
     sambamba sort --tmpdir=temp -t $num_threads -o $sra_id.sorted.bam $sra_id.bam
     if [ "$duplicates" != 0 ]; then
       rmdup=$(basename $sra_id.sorted.bam ".sorted.bam")
-      picard MarkDuplicates I=$sra_id.sorted.bam O=$rmdup."sorted.rmdup.bam" ASSUME_SORTED=TRUE METRICS_FILE=/dev/null VALIDATION_STRINGENCY=SILENT REMOVE_DUPLICATES=true
+      java -jar /picard/build/libs/picard.jar MarkDuplicates I=$sra_id.sorted.bam O=$rmdup."sorted.rmdup.bam" ASSUME_SORTED=TRUE METRICS_FILE=/dev/null VALIDATION_STRINGENCY=SILENT REMOVE_DUPLICATES=true
       mv $rmdup."sorted.rmdup.bam" "$bam_out"
     fi
     stringtie_SRA_single
     if [ "$fastqc" != 0 ]; then
       if [ "$seq_type" == "SE" ]; then
-        picard SamToFastq I=$sra_id.bam FASTQ="$sra_id".fastq
+        java -jar /picard/build/libs/picard.jar SamToFastq I=$sra_id.bam FASTQ="$sra_id".fastq
         fastqc "$sra_id".fastq
         mkdir fastqc_out
         mv "$sra_id".fastq *.zip *.html fastqc_out
         mv fastqc_out "$bam_out/Fasqc_out"
       elif [ "$seq_type" == "PE" ]; then
-        picard SamToFastq I=$sra_id.bam FASTQ="$sra_id"."R1".fastq SECOND_END_FASTQ="$sra_id"."R2".fastq
+        java -jar /picard/build/libs/picard.jar SamToFastq I=$sra_id.bam FASTQ="$sra_id"."R1".fastq SECOND_END_FASTQ="$sra_id"."R2".fastq
         echo "fastqc "$sra_id"."R1".fastq "$sra_id"."R2".fastq"
         fastqc "$sra_id"."R1".fastq "$sra_id"."R2".fastq
         mkdir fastqc_out
