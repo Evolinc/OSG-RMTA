@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 MAINTAINER Upendra Devisetty <upendra@cyverse.org>
-LABEL Description "This Dockerfile is used for hisat2 tool with sra option and cufflinks/stringtie with Cuffcompare and Cuffmerge"
+LABEL Description "This Dockerfile is used for OSG-RMTA"
 
 RUN mkdir /cvmfs /work
 
@@ -9,13 +9,15 @@ RUN apt-get update && apt-get install -y build-essential \
                                          python2.7 \
                                          wget \
                                          unzip \
-					 build-essential \
-        				 zlib1g-dev \
-        				 libncurses5-dev \
-        				 software-properties-common \
-					 lsb \
-					 apt-transport-https \
-					 python-requests
+                    			 build-essential \
+                            		 zlib1g-dev \
+                            		 libncurses5-dev \
+                            		 software-properties-common \
+                    			 lsb \
+                    			 apt-transport-https \
+                    			 python-requests \
+                                         libbz2-dev \
+                                         liblzma-dev
 
 # Install icommands.
 RUN wget -qO - https://packages.irods.org/irods-signing-key.asc | apt-key add - \
@@ -24,61 +26,56 @@ RUN wget -qO - https://packages.irods.org/irods-signing-key.asc | apt-key add - 
     && apt-get install -y irods-icommands
 
 RUN add-apt-repository -y ppa:openjdk-r/ppa
-RUN apt-get update
-RUN apt-get install -y openjdk-8-jdk
+RUN apt-get update && apt-get install -y openjdk-8-jdk libbz2-dev liblzma-dev
 
 ENV BINPATH /usr/bin
 
-# NCBI SRA-TOOL kit
-WORKDIR /ncbi
-RUN git clone https://github.com/ncbi/ngs.git
-RUN git clone https://github.com/ncbi/ncbi-vdb.git
-RUN git clone https://github.com/ncbi/sra-tools.git
-RUN ngs/ngs-sdk/configure --prefix=~/software/apps/sratoolkit/gcc/64/2.5.8
-RUN make default install -C ngs/ngs-sdk
-RUN ncbi-vdb/configure --prefix=~/software/apps/sratoolkit/gcc/64/2.5.8
-RUN make default install -C ncbi-vdb
-RUN sra-tools/configure --prefix=~/software/apps/sratoolkit/gcc/64/2.5.8
-RUN make default install -C sra-tools
+# Conda
+RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
+    wget --quiet https://repo.anaconda.com/miniconda/Miniconda2-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
+    rm ~/miniconda.sh
 
-# Hisat2
-WORKDIR /hisat2
-RUN wget ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/hisat2-2.1.0-Linux_x86_64.zip 
-RUN unzip hisat2-2.1.0-Linux_x86_64.zip
+ENV PATH /opt/conda/bin:$PATH
 
-# Cufflinks
+RUN conda config --add channels conda-forge 
+RUN conda config --add channels defaults 
+RUN conda config --add channels r 
+RUN conda config --add channels bioconda
+
+# Conda packages
+RUN conda install sra-tools==2.9.1_1
+RUN conda install hisat2==2.1.0
+RUN conda install stringtie==1.3.4
+RUN conda install samtools==1.9
+RUN conda install sambamba==0.6.8
+RUN conda install picard==2.18.27
+RUN conda install fastqc==0.11.8
+RUN conda install cufflinks==2.2.1
+RUN conda install subread==1.6.3
+RUN conda install salmon==0.14.1
+
+# Bowtie2
 WORKDIR /
-RUN wget -O- http://cole-trapnell-lab.github.io/cufflinks/assets/downloads/cufflinks-2.2.1.Linux_x86_64.tar.gz | tar xzvf -
+RUN wget https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.5/bowtie2-2.3.5-sra-linux-x86_64.zip
+RUN unzip bowtie2-2.3.5-sra-linux-x86_64.zip
+ENV PATH /bowtie2-2.3.5-sra-linux-x86_64/:$PATH
 
-# Stringtie
-RUN wget -O- http://ccb.jhu.edu/software/stringtie/dl/stringtie-1.3.4d.Linux_x86_64.tar.gz | tar xzvf -
+# Caching the sra data
+RUN vdb-config --root -s /repository/user/cache-disabled="true"
 
-# Samtools
-RUN apt-get install -y libbz2-dev liblzma-dev
-RUN wget https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2
-RUN tar xvf samtools-1.9.tar.bz2
-WORKDIR /samtools-1.9
-RUN make
-
-# Sambamba
-WORKDIR /
-RUN wget https://github.com/biod/sambamba/releases/download/v0.6.8/sambamba-0.6.8-linux-static.gz
-RUN gzip -d sambamba-0.6.8-linux-static.gz
-RUN chmod +x sambamba-0.6.8-linux-static
-RUN mv sambamba-0.6.8-linux-static $BINPATH
+# Environment
+ENV BINPATH /usr/bin
+ENV LC_ALL C 
 
 # Wrapper script
-ADD Hisat2-Cuffcompare-Cuffmerge.sh $BINPATH
-RUN chmod +x $BINPATH/Hisat2-Cuffcompare-Cuffmerge.sh
+ADD osg-rmta.sh $BINPATH
+RUN chmod +x $BINPATH/osg-rmta.sh
 
 # Scripts for OSG
 COPY upload-files wrapper /usr/bin/
 
 # Set environment
-RUN cp /cufflinks-2.2.1.Linux_x86_64/cuffcompare $BINPATH && \
-    cp /cufflinks-2.2.1.Linux_x86_64/cufflinks $BINPATH && \
-    cp /stringtie-1.3.4d.Linux_x86_64/stringtie $BINPATH && \
-    cp /samtools-1.9/samtools $BINPATH && \
-    cp /hisat2/hisat2-2.1.0/hisat2* /usr/bin
+RUN cp /bowtie2-2.3.5-sra-linux-x86_64/bowtie2* $BINPATH
 
-ENTRYPOINT ["Hisat2-Cuffcompare-Cuffmerge.sh"]
+ENTRYPOINT ["osg-rmta.sh"]

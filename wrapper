@@ -117,9 +117,9 @@ def download_files(ticket_list_path):
 # Run the job.
 def run_job(arguments, output_filename, error_filename):
     with open(output_filename, "w") as out, open(error_filename, "w") as err:
-        rc = subprocess.call(["Hisat2-Cuffcompare-Cuffmerge.sh"] + arguments, stdout=out, stderr=err)
+        rc = subprocess.call(["osg-rmta.sh"] + arguments, stdout=out, stderr=err)
         if rc != 0:
-            raise Exception("Hisat2-Cuffcompare-Cuffmerge.sh returned exit code {0}".format(rc))
+            raise Exception("osg-rmta.sh returned exit code {0}".format(rc))
 
 # Upload a set of files to the directories referenced in a ticket list file to iRODS.
 def upload_files(ticket_list_path, irods_user, owner, files):
