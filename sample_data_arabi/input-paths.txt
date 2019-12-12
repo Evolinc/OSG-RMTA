@@ -1,5 +1,1 @@
-/iplant/home/upendra_35/osg-rmta/SRR2037320_R1.fastq.gz
-/iplant/home/upendra_35/osg-rmta/SRR2932454_R1.fastq.gz
-/iplant/home/upendra_35/osg-rmta/SRR2037320_R2.fastq.gz
-/iplant/home/upendra_35/osg-rmta/SRR2932454_R2.fastq.gz
-/iplant/home/upendra_35/osg-rmta/genome_chr1.fa
+/iplant/home/upendra_35/osg-rmta/athal.fa.gz

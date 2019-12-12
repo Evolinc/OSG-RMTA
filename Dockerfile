@@ -6,16 +6,16 @@ RUN mkdir /cvmfs /work
 
 RUN apt-get update && apt-get install -y build-essential \
                                          git \
-                                         python2.7 \
+                                         python3 \
                                          wget \
                                          unzip \
-                    			 build-essential \
-                            		 zlib1g-dev \
-                            		 libncurses5-dev \
-                            		 software-properties-common \
-                    			 lsb \
-                    			 apt-transport-https \
-                    			 python-requests \
+                    			         build-essential \
+                            		     zlib1g-dev \
+                            		     libncurses5-dev \
+                            		     software-properties-common \
+                    			         lsb \
+                    			         apt-transport-https \
+                    			         python-requests \
                                          libbz2-dev \
                                          liblzma-dev
 
