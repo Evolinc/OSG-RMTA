@@ -38,7 +38,7 @@ The OSG-RMTA-v2.6.3 app is currently integrated in CyVerse’s Discovery Environ
 
 The OSG-RMTA-v2.6.3 Docker image app is currently available on the OSG and is free to use by researchers. In order to run OSG-RMTA on OSG, you first need to have an account with OSG. Register for a free account at [osg-connect](http://osgconnect.net/). After you register, you need to add your keys because OSG no longer allows password access. You can find more information [here](https://support.opensciencegrid.org/support/solutions/articles/12000027675-generate-ssh-key-pair-and-add-the-public-key-to-your-account). 
 
-The complete tutorial for running RMTA on the OSG is available in [here](https://hackmd.io/s/rJjrqyAAQ). 
+The complete tutorial for running RMTA on the OSG is available in [here](https://github.com/Evolinc/OSG-RMTA/blob/master/rmta_on_osg_instructions.md). 
 
 # Issues
 If you experience any issues with running OSG-RMTA (DE app, source code, or Docker image), please open an issue on this github repo. Alternatively you can post your queries and feature requests in this [google groups](https://groups.google.com/forum/#!forum/evolinc)
