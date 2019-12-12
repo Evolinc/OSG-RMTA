@@ -5,7 +5,7 @@ Here are the instructions for running RMTA on OSG (Open Science Grid)
 ##  Login to Submit host
 
 ```
-$ ssh <username>@login.osgconnect.net # username is your username
+ssh <username>@login.osgconnect.net # username is your username
 ```
 
 ## Run OSG-RMTA on the sample data
@@ -82,7 +82,7 @@ osg-rmta.sh -g genome_chr1.fa -A annotation_chr1.gtf -l "US" -n 0 -y "PE" -1 SRR
 Submit the job using `condor_submit`.
 
 ```
-$ condor_submit osg-rmta.submit
+condor_submit osg-rmta.submit
 
 ```
 
