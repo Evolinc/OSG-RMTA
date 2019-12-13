@@ -77,5 +77,14 @@ COPY upload-files wrapper /usr/bin/
 
 # Set environment
 RUN cp /bowtie2-2.3.5-sra-linux-x86_64/bowtie2* $BINPATH
+RUN cp /opt/conda/bin/hisat2* $BINPATH
+RUN cp /opt/conda/bin/stringtie $BINPATH
+RUN cp /opt/conda/bin/samtools $BINPATH
+RUN cp /opt/conda/bin/sambamba $BINPATH
+RUN cp /opt/conda/bin/picard $BINPATH
+RUN cp /opt/conda/bin/fastqc $BINPATH
+RUN cp /opt/conda/bin/cufflinks $BINPATH
+RUN cp /opt/conda/bin/featureCounts $BINPATH
+RUN cp /opt/conda/bin/salmon $BINPATH
 
 ENTRYPOINT ["osg-rmta.sh"]
