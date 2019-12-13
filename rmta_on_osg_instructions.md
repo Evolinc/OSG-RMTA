@@ -43,7 +43,7 @@ Executable = osg-rmta-wrapper.sh
 Arguments =
 
 # inputs/outputs
-transfer_input_files = osg-rmta.sh, Sorghum_bicolor.Sorbi1.20.dna.toplevel_chr8.fa, Sorghum_bicolor.Sorbi1.20_chr8.gtf, sample_1_R1.fq.gz, sample_1_R2.fq.gz
+transfer_input_files = osg-rmta.sh, genome_chr1.fa, annotation_chr1.gtf, SRR2037320_R1.fastq.gz, SRR2932454_R1.fastq.gz, SRR2037320_R2.fastq.gz, SRR2932454_R2.fastq.gz, SRR3464102.fastq.gz, SRR3464103.fastq.gz
 transfer_output_files = final_out, index
 
 # ERROR and OUTPUT are the error and output channels from your job
