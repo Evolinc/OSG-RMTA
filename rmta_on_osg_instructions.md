@@ -21,7 +21,7 @@ In the `sample_data_arabi` folder you will find the files and the scripts that a
 
 ### Job description file
 
-Here is an example of Job description file (`osg-rmta.submit`) for running RMTA
+Here is an example of Job description file ([osg-rmta.submit](https://github.com/Evolinc/OSG-RMTA/blob/master/sample_data_arabi/osg-rmta.submit)) for running RMTA
 
 ```
 # The UNIVERSE defines an execution environment. You will almost always use VANILLA.
@@ -68,7 +68,7 @@ Queue 1
 
 ### Executable wrapper script
 
-Here is an example of executable script (`osg-rmta-wrapper.sh`)
+Here is an example of executable script ([osg-rmta-wrapper.sh](https://github.com/Evolinc/OSG-RMTA/blob/master/sample_data_arabi/osg-rmta-wrapper.sh))
 
 ```
 #!/bin/bash
